@@ -32,6 +32,8 @@
    ```bash
    python app.py
    ```
+7.  bash 
+   dsm.sh
 
 ## Additional Setup
 - Follow any further configuration instructions provided in the project documentation.

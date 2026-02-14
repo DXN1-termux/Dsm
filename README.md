@@ -1,3 +1,5 @@
+password is: admin123 🤫
+
 # 🔐 DSM - Dani-Storage-Manager
 
 A powerful **bash-based file management tool** for Termux with security authentication, resource monitoring, network scanning, and storage analysis all in one sleek interface.

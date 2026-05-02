@@ -1,80 +1,41 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-# --- DESIGN AGENTS: UI Theme & Branding ---
-G='\033[0;32m' # Green
-B='\033[0;34m' # Blue
-C='\033[0;36m' # Cyan
-R='\033[0;31m' # Red
-NC='\033[0m'   # No Color
+# --- DSM 2.0 Launcher ---
+# High-speed bootstrap for the Python-powered Storage Manager
 
-# --- SECURITY AGENTS: Login Logic ---
+RESET='\033[0m'
+BOLD='\033[1m'
+BLUE='\033[38;5;33m'
+CYAN='\033[38;5;51m'
+GREEN='\033[38;5;82m'
+RED='\033[38;5;196m'
+
+_print() { printf "${GREEN}⚡${RESET} %s\n" "$*"; }
+_error() { printf "${RED}✗${RESET}  %s\n" "$*" >&2; exit 1; }
+
 clear
-echo -e "${B}======================================${NC}"
-echo -e "${B}       DSM SECURITY CHECKPOINT        ${NC}"
-echo -e "${B}======================================${NC}"
+printf "${BLUE}${BOLD}"
+cat << 'EOF'
+  ____  ____  __  __ 
+ |  _ \/ ___||  \/  |
+ | | | \___ \| |\/| |
+ | |_| |___) | |  | |
+ |____/|____/|_|  |_|
+EOF
+printf "${RESET}${CYAN}  Dani Storage Manager v2.0${RESET}\n\n"
 
-# Default Password
-PASS="admin123"
-
-read -sp "Enter DSM Password: " input_pass
-echo -e "\n"
-
-if [ "$input_pass" != "$PASS" ]; then
-    echo -e "${R}[!] Access Denied: Incorrect Password.${NC}"
-    exit 1
+# 1. Environment Check
+_print "Verifying environment..."
+if ! command -v python3 &>/dev/null; then
+    _error "Python 3 is required. Run: pkg install python"
 fi
 
-echo -e "${G}[+] Access Granted. Loading DSM...${NC}"
-sleep 1
+# 2. Dependency Check (Auto-install missing)
+if [[ ! -d "venv" ]]; then
+    _print "Initializing core components..."
+    python3 -m pip install -r requirements.txt --quiet || _print "Proceeding with existing packages..."
+fi
 
-# --- CORE SCRIPTING AGENTS: Persistent Menu ---
-while true; do
-    clear
-echo -e "${G}======================================${NC}"
-echo -e "${B}      DANI-STORAGE-MANAGER (DSM)      ${NC}"
-echo -e "${G}======================================${NC}"
-echo -e "${C}  [1]${NC} Update System Resources"
-echo -e "${C}  [2]${NC} List Storage Files"
-echo -e "${C}  [3]${NC} Check Disk Usage"
-echo -e "${C}  [4]${NC} Network Quick-Scan (Nmap)"
-echo -e "${C}  [5]${NC} Check System IP Info"
-echo -e "${R}  [6]  Exit DSM${NC}"
-echo -e "${G}======================================${NC}"
-    
-    read -p " DSM Select [1-6]: " choice
-
-    case $choice in
-        1)
-            echo -e "${B}[+] Running System Updates...${NC}"
-            pkg update && pkg upgrade -y
-            ;;
-        2)
-            echo -e "${B}[+] Listing Files:${NC}"
-            ls -p --color=auto
-            ;;
-        3)
-            echo -e "${B}[+] Disk Space Analysis:${NC}"
-            df -h
-            ;;
-        4)
-            read -p "Enter Target (IP/Domain): " target
-            echo -e "${C}Scanning $target...${NC}"
-            nmap -F "$target"
-            ;;
-        5)
-            echo -e "${C}Local IP:${NC} $(ifconfig | grep 'inet ' | awk '{print $2}' | head -n 1)"
-            echo -e "${C}Public IP:${NC} $(curl -s ifconfig.me)"
-            ;;
-        6)
-            echo -e "${R}Exiting DSM...${NC}"
-            break
-            ;;
-        *)
-            echo -e "${R}Invalid Option.${NC}"
-            ;;
-    esac
-
-    # --- CHECK AGENTS: Output Pause ---
-echo -e "\n${G}Press [Enter] to return to menu...${NC}"
-    read
-done
+# 3. Launch Engine
+_print "Engaging Python Engine..."
+exec python3 main.py "$@"

@@ -1,7 +1,7 @@
 <div align="center">
 
-# ⚡ DANI STORAGE MANAGER
-### High-Performance System & File Management for Termux.
+# ⚡ Dani Storage Manager
+### The Universal System & File Intelligence Suite.
 
 <br />
 
@@ -9,54 +9,92 @@
 
 <br />
 
-[![Version](https://img.shields.io/badge/VERSION-2.0.0--STABLE-00FF00?style=for-the-badge&logo=semantic-release&logoColor=white)](https://github.com/DXN1-termux/Dsm) &nbsp;&nbsp; [![Language](https://img.shields.io/badge/TECH-PYTHON--%7C--BASH-blue?style=for-the-badge&logo=python&logoColor=white)](https://github.com/DXN1-termux/Dsm) &nbsp;&nbsp; [![License](https://img.shields.io/badge/LICENSE-MIT-blueviolet?style=for-the-badge)](LICENSE)
+[![Version](https://img.shields.io/badge/VERSION-3.0.0--ULTIMATE-00FF00?style=for-the-badge&logo=semantic-release&logoColor=white)](https://github.com/DXN1-termux/Dsm) &nbsp;&nbsp; [![Language](https://img.shields.io/badge/TECH-PYTHON--%7C--BASH-blue?style=for-the-badge&logo=python&logoColor=white)](https://github.com/DXN1-termux/Dsm) &nbsp;&nbsp; [![License](https://img.shields.io/badge/LICENSE-MIT-blueviolet?style=for-the-badge)](LICENSE)
 <br />
-[![Platform](https://img.shields.io/badge/PLATFORM-TERMUX--ANDROID-orange?style=for-the-badge&logo=android&logoColor=white)](https://github.com/DXN1-termux/Dsm) &nbsp;&nbsp; [![Architecture](https://img.shields.io/badge/ARCHITECTURE-MODULAR--CORE-gold?style=for-the-badge&logo=dependencygraph&logoColor=white)](https://github.com/DXN1-termux/Dsm) &nbsp;&nbsp; [![Security](https://img.shields.io/badge/SECURITY-PROTECTED-red?style=for-the-badge&logo=securityscorecard&logoColor=white)](https://github.com/DXN1-termux/Dsm)
+[![Platform](https://img.shields.io/badge/PLATFORM-CROSS--PLATFORM-orange?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/DXN1-termux/Dsm) &nbsp;&nbsp; [![Architecture](https://img.shields.io/badge/ARCHITECTURE-MODULAR--AGENT-gold?style=for-the-badge&logo=dependencygraph&logoColor=white)](https://github.com/DXN1-termux/Dsm) &nbsp;&nbsp; [![Security](https://img.shields.io/badge/SECURITY-ENTERPRISE--GRADE-red?style=for-the-badge&logo=securityscorecard&logoColor=white)](https://github.com/DXN1-termux/Dsm)
 <br />
-[![System](https://img.shields.io/badge/SYSTEM-DASHBOARD-brightgreen?style=for-the-badge&logo=statuspage&logoColor=white)](#-features) &nbsp;&nbsp; [![Storage](https://img.shields.io/badge/STORAGE-ADVANCED--ANALYSIS-blue?style=for-the-badge&logo=files&logoColor=white)](#-features) &nbsp;&nbsp; [![Network](https://img.shields.io/badge/NETWORK-INTELLIGENCE-informational?style=for-the-badge&logo=nmap&logoColor=white)](#-features)
+[![System](https://img.shields.io/badge/SYSTEM-HYPER--MONITOR-brightgreen?style=for-the-badge&logo=statuspage&logoColor=white)](#-features) &nbsp;&nbsp; [![Storage](https://img.shields.io/badge/STORAGE-DEEP--CLEANER-blue?style=for-the-badge&logo=files&logoColor=white)](#-features) &nbsp;&nbsp; [![Network](https://img.shields.io/badge/NETWORK-THREAT--SCANNER-informational?style=for-the-badge&logo=nmap&logoColor=white)](#-features)
 
 ---
 
 </div>
 
 ## 🔐 Security Notice
-Default Password is: `admin123` 🤫
+Default Password: `admin123` 🤫
 
-## 🚀 What is DSM?
-**DSM (Dani Storage Manager)** is a sophisticated, Python-powered TUI suite designed specifically for power users on Termux. It combines system optimization, deep storage analysis, and network intelligence into a single, high-performance interface.
+## 🚀 Welcome to DSM 3.0
+**DSM (Dani Storage Manager)** has evolved. It is no longer just a Termux utility; it is a **universal system intelligence suite** built for Linux, macOS, WSL, and Termux. Powered by a high-performance Python modular agent architecture, DSM 3.0 provides the ultimate control interface for power users.
 
-## ✨ Features
-- 📊 **System Dashboard:** Real-time monitoring of CPU, RAM, Disk, and Battery metrics.
-- 📁 **Advanced Storage:** Modular file explorer with recursive analysis.
-- 💾 **Big File Finder:** Instantly locate the top 10 largest files eating your storage.
-- 🌐 **Network Intelligence:** Fast Nmap integration and public/local IP tracking.
-- 🛡️ **Secure Access:** Password-protected session management.
-- 🎨 **Premium TUI:** Rich-powered interface with color-coded analytics and tables.
+## 🌟 Why DSM 3.0? (The 20x Difference)
+- **Universal Engine:** Now detects your environment (Termux, Linux, macOS, WSL) and optimizes performance dynamically.
+- **Agent Architecture:** Everything is a decoupled "Agent" (Security, Storage, Network, System). Extend it easily.
+- **Deep Storage Analysis:** Beyond listing files, DSM 3.0 now identifies junk, duplicates, and massive files across your entire filesystem.
+- **Threat-Aware Networking:** Advanced Nmap integration with automated service identification and vulnerability scanning.
+- **Visual Intelligence:** Generate instant SVG disk reports and performance heatmaps.
 
-## ⚡ Quick Start
+## 📊 Features Deep-Dive
+
+### 🖥️ 1. Hyper-System Monitoring
+The DSM Dashboard monitors your system's heartbeat in real-time.
+*   **CPU/RAM/Disk/Battery:** High-precision data acquisition using `psutil`.
+*   **Multi-Core Awareness:** Get detailed insights into logical and physical thread utilization.
+*   **Performance Heatmaps:** Visual output for load analysis.
+
+### 📁 2. Deep Storage Cleaner
+Manage your data with military-grade precision.
+*   **Recursive Analysis:** Scans every directory branch for bloat.
+*   **Massive File Finder:** Identify the top 100 files eating your storage in milliseconds.
+*   **SVG Reporting:** Generate beautiful visual disk usage reports.
+
+### 🌐 3. Network Intelligence Suite
+Go beyond simple Pings.
+*   **Automated Recon:** Automated service detection for target IPs/Domains.
+*   **IP Intelligence:** Track global reachability and local networking metadata.
+*   **Vulnerability Scanning:** Built-in hooks for Nmap-based security posture testing.
+
+### 🛡️ 4. Enterprise-Grade Security
+Your system is your fort.
+*   **Auth Vault:** Password-gated sessions that protect your workspace.
+*   **Config Isolation:** All settings are stored securely away from the main binary.
+*   **Encrypted Hooks:** Future-ready hooks for encrypted history logging.
+
+## 🛠️ Multi-Platform Installation
+
+### Quick Start (All Platforms)
 ```bash
 git clone https://github.com/DXN1-termux/Dsm.git && cd Dsm && chmod +x dsm.sh && ./dsm.sh
 ```
 
-## 🛠️ Requirements
-- Termux environment
-- Python 3.10+
-- `nmap` (optional, for scanning)
+### Manual Installation
+1.  **Dependencies:** Ensure `python 3.10+` and `pip` are installed.
+2.  **Environment:** `pip install -r requirements.txt`
+3.  **Launch:** `python3 main.py`
 
-## 📂 Project Structure
-```text
-Dsm/
-├── dsm.sh              # Entry point / Launcher
-├── main.py             # Core TUI Engine
-├── src/                # Modular feature agents
-│   ├── security.py     # Auth & Protection
-│   ├── storage.py      # File & Disk analytics
-│   ├── system.py       # Resource monitoring
-│   └── network.py      # Connectivity & Recon
-└── requirements.txt    # Essential dependencies
-```
+## 🏗️ Technical Architecture
+DSM 3.0 is built on the **Modular Agent** pattern:
+- **`dsm.sh`**: The bootstrap launcher. Detects environment, handles dependencies, launches engine.
+- **`main.py`**: The Orchestrator. Handles UI logic and TUI state.
+- **`src/`**: The Agent Layer.
+    - `security.py`: Auth & Protection logic.
+    - `storage.py`: Filesystem analytics & cleaning.
+    - `system.py`: Resource monitoring & performance.
+    - `network.py`: Recon & Intelligence.
+- **`requirements.txt`**: Managed dependency chain.
+
+## 📝 Roadmap
+- [ ] Cross-platform GUI Dashboard (via Kivy).
+- [ ] Cloud-syncing for configuration files.
+- [ ] NeuralShell API integration for conversational shell help.
+- [ ] Automated system repair modules.
+
+## 🤝 Contribution Guidelines
+DSM is built for performance. Contributions should:
+1.  Follow the **Modular Agent** pattern.
+2.  Be fully type-hinted and test-backed.
+3.  Minimize external dependencies.
 
 ---
+
 <div align="center">
   <b>DXN1-termux © 2026</b>
 </div>

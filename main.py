@@ -47,11 +47,12 @@ def main():
         menu = Table(show_header=False, box=None, padding=(0, 2))
         menu.add_row("[bold cyan][1][/bold cyan] System Updates", "[bold cyan][4][/bold cyan] Network Scan")
         menu.add_row("[bold cyan][2][/bold cyan] List Files", "[bold cyan][5][/bold cyan] IP Intelligence")
-        menu.add_row("[bold cyan][3][/bold cyan] Big File Finder", "[bold cyan][6][/bold cyan] Exit DSM")
+        menu.add_row("[bold cyan][3][/bold cyan] Big File Finder", "[bold cyan][7][/bold cyan] Visual Disk SVG")
+        menu.add_row("[bold red][6][/bold red] Exit DSM")
         
         console.print(Panel(menu, title="Main Menu", border_style="dim"))
 
-        choice = Prompt.ask("DSM Select", choices=["1", "2", "3", "4", "5", "6"], default="6")
+        choice = Prompt.ask("DSM Select", choices=["1", "2", "3", "4", "5", "6", "7"], default="6")
 
         if choice == "1":
             console.print("[yellow]Updating System Resources...[/yellow]")
@@ -67,6 +68,8 @@ def main():
             console.print(network.quick_scan(target))
         elif choice == "5":
             console.print(network.get_ip_info())
+        elif choice == "7":
+            console.print(system.generate_visual_report())
         elif choice == "6":
             console.print("[bold red]Exiting DSM. Stay safe.[/bold red]")
             break

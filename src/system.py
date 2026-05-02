@@ -1,25 +1,23 @@
-import platform
+import time
+from rich.live import Live
+from rich.table import Table
+from rich.panel import Panel
 import psutil
-import socket
 
 class SystemAgent:
-    def __init__(self):
-        self.os = platform.system()
-        
-    def get_comprehensive_stats(self):
-        return {
-            "platform": self.os,
-            "cpu_freq": psutil.cpu_freq().current if psutil.cpu_freq() else "N/A",
-            "cpu_cores": psutil.cpu_count(logical=True),
-            "ram": psutil.virtual_memory()._asdict(),
-            "disk": psutil.disk_usage('/')._asdict(),
-            "net_io": psutil.net_io_counters()._asdict()
-        }
+    def get_dashboard_table(self):
+        cpu = psutil.cpu_percent()
+        ram = psutil.virtual_memory().percent
+        table = Table(box=None)
+        table.add_column("Metric", style="cyan")
+        table.add_column("Value", style="magenta")
+        table.add_row("CPU", f"{cpu}%")
+        table.add_row("RAM", f"{ram}%")
+        return table
 
-    def detect_environment(self):
-        """Cross-platform environment detection."""
-        return {
-            "is_termux": os.environ.get("PREFIX") is not None,
-            "is_wsl": "microsoft" in platform.release().lower(),
-            "arch": platform.machine()
-        }
+    def live_monitor(self):
+        """Native terminal live-refresh dashboard."""
+        with Live(self.get_dashboard_table(), refresh_per_second=2, transient=True) as live:
+            for _ in range(20):
+                time.sleep(0.5)
+                live.update(self.get_dashboard_table())

@@ -45,31 +45,31 @@ def main():
         
         # Menu
         menu = Table(show_header=False, box=None, padding=(0, 2))
-        menu.add_row("[bold cyan][1][/bold cyan] System Updates", "[bold cyan][4][/bold cyan] Network Scan")
+        menu.add_row("[bold cyan][1][/bold cyan] Live Monitor", "[bold cyan][4][/bold cyan] Network Scan")
         menu.add_row("[bold cyan][2][/bold cyan] List Files", "[bold cyan][5][/bold cyan] IP Intelligence")
-        menu.add_row("[bold cyan][3][/bold cyan] Big File Finder", "[bold cyan][7][/bold cyan] Visual Disk SVG")
+        menu.add_row("[bold cyan][3][/bold cyan] Smart Purge", "[bold cyan][7][/bold cyan] System Info")
         menu.add_row("[bold red][6][/bold red] Exit DSM")
         
-        console.print(Panel(menu, title="Main Menu", border_style="dim"))
+        console.print(Panel(menu, title="Main Menu [DSM 4.0]", border_style="dim"))
 
         choice = Prompt.ask("DSM Select", choices=["1", "2", "3", "4", "5", "6", "7"], default="6")
 
         if choice == "1":
-            console.print("[yellow]Updating System Resources...[/yellow]")
-            os.system("pkg update && pkg upgrade -y")
+            system.live_monitor()
         elif choice == "2":
             path = Prompt.ask("Enter path to list", default=".")
             console.print(storage.list_files(path))
         elif choice == "3":
-            path = Prompt.ask("Enter path to analyze", default=".")
-            console.print(storage.find_large_files(path))
+            console.print("[yellow]Starting Smart Purge...[/yellow]")
+            purged = storage.intelligent_purge(".")
+            console.print(f"[green]Cleaned {len(purged)} junk files.[/green]")
         elif choice == "4":
             target = Prompt.ask("Enter Target (IP/Domain)")
             console.print(network.quick_scan(target))
         elif choice == "5":
             console.print(network.get_ip_info())
         elif choice == "7":
-            console.print(system.generate_visual_report())
+            console.print(system.get_dashboard_table())
         elif choice == "6":
             console.print("[bold red]Exiting DSM. Stay safe.[/bold red]")
             break

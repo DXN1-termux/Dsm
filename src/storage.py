@@ -1,43 +1,31 @@
 import os
-import time
-from rich.table import Table
+import psutil
 from rich.console import Console
+from rich.table import Table
+from rich.panel import Panel
 
 console = Console()
 
 class StorageAgent:
     def list_files(self, path="."):
-        table = Table(title=f"Files in {os.path.abspath(path)}", box=None)
+        table = Table(title=f"Directory: {os.path.abspath(path)}", box=None)
         table.add_column("Name", style="cyan")
         table.add_column("Size", style="green")
-        table.add_column("Modified", style="dim")
-
+        table.add_column("Type", style="dim")
         for item in os.listdir(path):
             full_path = os.path.join(path, item)
-            stats = os.stat(full_path)
-            size = f"{stats.st_size / 1024:.1f} KB"
-            mtime = time.ctime(stats.st_mtime)
-            table.add_row(item, size, mtime)
-        
+            is_dir = os.path.isdir(full_path)
+            size = f"{os.path.getsize(full_path) / 1024:.1f} KB" if not is_dir else "DIR"
+            table.add_row(item, size, "Folder" if is_dir else "File")
         return table
 
-    def find_large_files(self, path=".", limit=10):
-        file_list = []
+    def intelligent_purge(self, path="."):
+        """Deep scan for common junk file patterns."""
+        junk_patterns = ['.tmp', '.log', '.cache', '.bak', 'Thumbs.db']
+        purged = []
         for root, dirs, files in os.walk(path):
             for f in files:
-                fp = os.path.join(root, f)
-                try:
-                    file_list.append((fp, os.path.getsize(fp)))
-                except:
-                    pass
-        
-        file_list.sort(key=lambda x: x[1], reverse=True)
-        
-        table = Table(title="Top Large Files", border_style="yellow")
-        table.add_column("Path", style="dim")
-        table.add_column("Size", style="bold red")
-        
-        for fp, size in file_list[:limit]:
-            table.add_row(fp, f"{size / (1024**2):.1f} MB")
-            
-        return table
+                if any(f.endswith(p) for p in junk_patterns):
+                    os.remove(os.path.join(root, f))
+                    purged.append(f)
+        return purged

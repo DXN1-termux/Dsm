@@ -58,6 +58,25 @@ Your system is your fort.
 *   **Config Isolation:** All settings are stored securely away from the main binary.
 *   **Encrypted Hooks:** Future-ready hooks for encrypted history logging.
 
+## 📊 Version Comparison (The Evolution)
+Witness the transition from a simple storage utility to an industrial-grade system intelligence suite.
+
+| Feature | v1.0 (Legacy) | v3.0 (Ultimate) |
+| :--- | :--- | :--- |
+| **Engine** | Single Bash Script | Modular Python Agent-Core |
+| **UI** | Basic Echo Menu | Rich-Powered Professional TUI |
+| **System Visibility** | Text-based stats | Real-time SVG & Heatmaps |
+| **Platform Support** | Termux Only | Universal (Linux/macOS/WSL/Termux) |
+| **Network** | Basic Ping/Nmap | Advanced Recon & Intelligence |
+| **Architecture** | Spagetti Code | Decoupled Agent-Pattern |
+
+## 📦 Release History (3.0.0-Ultimate)
+- **v3.0.0:** Complete architecture overhaul, multi-platform support, SVG visual reports, agent-modularization, and enterprise-grade security.
+- **v2.5.0:** Integration of visual SVG disk analysis and dashboard refinement.
+- **v1.0.0:** The original bash-based tool—the humble beginning of a powerful project.
+
+---
+
 ## 🛠️ Multi-Platform Installation
 
 ### Quick Start (All Platforms)

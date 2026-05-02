@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="420" viewBox="0 0 1600 420">
+<defs>
+  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#07111f"/>
+    <stop offset="100%" stop-color="#122f55"/>
+  </linearGradient>
+  <linearGradient id="c" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#6ae4ff"/>
+    <stop offset="100%" stop-color="#9bffcb"/>
+  </linearGradient>
+</defs>
+<rect width="1600" height="420" rx="32" fill="url(#g)"/>
+<circle cx="1320" cy="102" r="170" fill="#1b3f71" opacity=".25"/>
+<circle cx="1460" cy="280" r="210" fill="#0f2543" opacity=".55"/>
+<text x="70" y="120" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="78" font-weight="800" fill="#eaf5ff">DSM</text>
+<text x="70" y="184" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="34" font-weight="600" fill="#6ae4ff">DXN1 Storage Manager v6</text>
+<text x="70" y="244" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="24" fill="#cde0ff">Terminal dashboard • localhost control • security-first workflow • storage tools • network utility hooks</text>
+<rect x="70" y="286" width="450" height="8" rx="4" fill="url(#c)"/>
+<g transform="translate(70,320)">
+  <rect width="190" height="44" rx="22" fill="#12263f" stroke="#2d4f7a"/>
+  <text x="95" y="28" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="18" fill="#eaf5ff">Termux-ready</text>
+  <rect x="210" width="200" height="44" rx="22" fill="#12263f" stroke="#2d4f7a"/>
+  <text x="310" y="28" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="18" fill="#eaf5ff">Localhost panel</text>
+  <rect x="430" width="190" height="44" rx="22" fill="#12263f" stroke="#2d4f7a"/>
+  <text x="525" y="28" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="18" fill="#eaf5ff">Audit & reports</text>
+</g>
+</svg>

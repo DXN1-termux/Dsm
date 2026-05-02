@@ -1,42 +1,18 @@
-# Installation Instructions
+# Installation
 
-## Prerequisites
-- Ensure you have Termux installed on your mobile device.
-- Make sure your device has internet access.
+## Termux
 
-## Installation Steps
-1. **Update package list:**
-   ```bash
-   pkg update
-   ```
-2. **Install required packages:**
-   ```bash
-   pkg install git
-   pkg install python
-   pkg install python-dev
-   pkg install clang
-   ```
-3. **Clone the repository:**
-   ```bash
-   git clone https://github.com/DXN1-termux/dsm.git
-   ```
-4. **Navigate to the project directory:**
-   ```bash
-   cd dsm
-   ```
-5. **Install required Python packages:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-6. **Run the application:**
-   ```bash
-   python app.py
-   ```
-7.  bash 
-   dsm.sh
+```bash
+pkg update && pkg upgrade -y
+pkg install python nmap -y
+pip install -r requirements.txt
+chmod +x dsm.sh
+./dsm.sh
+```
 
-## Additional Setup
-- Follow any further configuration instructions provided in the project documentation.
+## Linux
 
-## Troubleshooting
-- If you encounter issues, please refer to the GitHub issues page or open a new issue for assistance.
+```bash
+python3 -m pip install -r requirements.txt
+python3 main.py
+```

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="180" viewBox="0 0 800 180">
+<rect width="800" height="180" rx="28" fill="#07111f"/>
+<path d="M70 24 L130 42 V84 C130 124 102 144 70 156 C38 144 10 124 10 84 V42 Z" fill="#13233a" stroke="#6ae4ff" stroke-width="2"/>
+<path d="M70 40 L98 50 V82 C98 104 84 116 70 122 C56 116 42 104 42 82 V50 Z" fill="#6ae4ff" opacity=".9"/>
+<text x="180" y="65" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="34" font-weight="800" fill="#eaf5ff">Security stack</text>
+<text x="180" y="102" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" fill="#a8c2e6">Argon2id fallback, salted hashes, session gating, audit trail, report export</text>
+<rect x="180" y="120" width="560" height="16" rx="8" fill="#13233a"/>
+<rect x="180" y="120" width="430" height="16" rx="8" fill="#6ae4ff"/>
+</svg>

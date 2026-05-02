@@ -1,71 +1,145 @@
-import os
+from __future__ import annotations
+
+import base64
 import hashlib
-import json
-import time
-
-class SecurityAgent:
-    """Enterprise-grade security controller for DSM Pro."""
-    CONFIG_FILE = ".dsm_auth"
-    LOG_FILE = "security.log"
-
-    def __init__(self):
-        self.password_hash = self._load_password()
-
-    def _load_password(self):
-        if os.path.exists(self.CONFIG_FILE):
-            with open(self.CONFIG_FILE, 'r') as f:
-                return f.read().strip()
-        # Default fallback
-        return hashlib.sha256("admin123".encode()).hexdigest()
-
-    def update_password(self, new_password):
-        """Rotates the access key and logs the event."""
-        self.password_hash = hashlib.sha256(new_password.encode()).hexdigest()
-        with open(self.CONFIG_FILE, 'w') as f:
-            f.write(self.password_hash)
-        self._log("AUTH_ROTATION", "Password updated successfully.")
-
-    def verify(self, password):
-        """Verifies access with SHA-256 integrity checks."""
-        is_valid = hashlib.sha256(password.encode()).hexdigest() == self.password_hash
-        if not is_valid:
-            self._log("AUTH_FAILURE", "Unauthorized access attempt.")
-        return is_valid
-
-    def _log(self, event, msg):
-        with open(self.LOG_FILE, "a") as f:
-            f.write(f"{time.ctime()} | {event} | {msg}\n")
-EOF
-
-cat > Dsm/src/storage.py <<EOF
+import hmac
 import os
-import json
-from rich.table import Table
-from rich.console import Console
+from dataclasses import dataclass
+from getpass import getpass
 
-class StorageAgent:
-    """Advanced File Intelligence & Purge Agent."""
-    
-    def scan_deep(self, path="."):
-        """Recursive deep-scan for large files and junk."""
-        report = {"files": [], "total_size": 0}
-        for root, _, files in os.walk(path):
-            for f in files:
-                fp = os.path.join(root, f)
-                try:
-                    size = os.path.getsize(fp)
-                    report["files"].append({"path": fp, "size": size})
-                    report["total_size"] += size
-                except: continue
-        return report
+from .config import AppConfig, ConfigStore, LOG_FILE
+from .utils import make_salt, now_iso
 
-    def generate_svg_preview(self, path="."):
-        """Generates a high-end SVG visualization of disk usage."""
-        # ... logic for SVG generation ...
-        return "visual_report.svg"
+try:
+    from argon2 import PasswordHasher
+    from argon2.exceptions import VerifyMismatchError, VerificationError
+except Exception:  # pragma: no cover - optional dependency
+    PasswordHasher = None
+    VerifyMismatchError = Exception
+    VerificationError = Exception
 
-    def purge_junk(self, path="."):
-        """Automated purge of bloat and cache."""
-        # ... purging logic ...
-        return 15 # count of files purged
-EOF
+
+@dataclass
+class AuthResult:
+    ok: bool
+    message: str = ""
+
+
+def _pepper() -> bytes:
+    # Optional external secret for a second layer of protection.
+    return os.environ.get("DSM_PEPPER", "").encode("utf-8")
+
+
+def _pbkdf2_hash(password: str, salt: str, iterations: int = 210_000) -> str:
+    digest = hashlib.pbkdf2_hmac(
+        "sha256",
+        password.encode("utf-8") + _pepper(),
+        salt.encode("utf-8"),
+        iterations,
+    )
+    return f"pbkdf2${iterations}${salt}${base64.urlsafe_b64encode(digest).decode('ascii')}"
+
+
+def _pbkdf2_verify(stored: str, password: str) -> bool:
+    try:
+        _, iterations, salt, digest_b64 = stored.split("$", 3)
+        iterations_i = int(iterations)
+        candidate = hashlib.pbkdf2_hmac(
+            "sha256",
+            password.encode("utf-8") + _pepper(),
+            salt.encode("utf-8"),
+            iterations_i,
+        )
+        expected = base64.urlsafe_b64decode(digest_b64.encode("ascii"))
+        return hmac.compare_digest(candidate, expected)
+    except Exception:
+        return False
+
+
+class SecurityManager:
+    def __init__(self) -> None:
+        self.store = ConfigStore()
+        self.config = self.store.load()
+        self._argon2 = None
+        if PasswordHasher is not None:
+            self._argon2 = PasswordHasher(
+                time_cost=3,
+                memory_cost=65536,
+                parallelism=2,
+                hash_len=32,
+                salt_len=16,
+            )
+
+    def log(self, message: str) -> None:
+        LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
+        with LOG_FILE.open("a", encoding="utf-8") as handle:
+            handle.write(f"[{now_iso()}] {message}\n")
+
+    def _hash(self, password: str, salt: str) -> str:
+        if self._argon2 is not None:
+            # Salt is mixed in as a pepper-like extra namespace to keep the stored
+            # format explicit while still relying on Argon2id for the heavy lifting.
+            return f"argon2${salt}${self._argon2.hash(password + _pepper().decode('utf-8', errors='ignore') + salt)}"
+        return _pbkdf2_hash(password, salt)
+
+    def _verify(self, stored: str, password: str, salt: str) -> bool:
+        if stored.startswith("argon2$") and self._argon2 is not None:
+            try:
+                _, stored_salt, argon_hash = stored.split("$", 2)
+                # stored_salt kept for audit compatibility; the actual Argon2 hash
+                # already carries its own salt internally.
+                self._argon2.verify(argon_hash, password + _pepper().decode('utf-8', errors='ignore') + stored_salt)
+                return True
+            except (VerifyMismatchError, VerificationError, ValueError):
+                return False
+            except Exception:
+                return False
+        if stored.startswith("pbkdf2$"):
+            return _pbkdf2_verify(stored, password)
+        return hmac.compare_digest(stored, self._hash(password, salt))
+
+    def bootstrap(self) -> None:
+        if self.config.password_hash and self.config.salt:
+            return
+        print("First run setup: create a DSM v6 password.")
+        while True:
+            first = getpass("New password: ")
+            second = getpass("Confirm password: ")
+            if not first:
+                print("Password cannot be empty.")
+                continue
+            if first != second:
+                print("Passwords do not match.")
+                continue
+            salt = make_salt()
+            self.config.salt = salt
+            self.config.password_hash = self._hash(first, salt)
+            self.config.first_run = False
+            self.store.save(self.config)
+            self.log("Initial password configured")
+            print("Password created.")
+            return
+
+    def verify(self, password: str) -> bool:
+        if not self.config.password_hash or not self.config.salt:
+            return False
+        ok = self._verify(self.config.password_hash, password, self.config.salt)
+        self.log(f"Authentication {'success' if ok else 'failure'}")
+        return ok
+
+    def rotate_password(self, old_password: str, new_password: str) -> AuthResult:
+        if not self.verify(old_password):
+            return AuthResult(False, "Old password did not match.")
+        salt = make_salt()
+        self.config.salt = salt
+        self.config.password_hash = self._hash(new_password, salt)
+        self.store.save(self.config)
+        self.log("Password rotated")
+        return AuthResult(True, "Password rotated successfully.")
+
+    def admin_reset(self, new_password: str) -> None:
+        salt = make_salt()
+        self.config.salt = salt
+        self.config.password_hash = self._hash(new_password, salt)
+        self.store.save(self.config)
+        self.log("Password reset")

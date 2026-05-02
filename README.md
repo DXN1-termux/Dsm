@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚡ Dani Storage Manager
+# ⚡ DXN1 STORAGE MANAGER
 ### The Universal System & File Intelligence Suite.
 
 <br />
@@ -13,7 +13,7 @@
 <br />
 [![Platform](https://img.shields.io/badge/PLATFORM-CROSS--PLATFORM-orange?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/DXN1-termux/Dsm) &nbsp;&nbsp; [![Architecture](https://img.shields.io/badge/ARCHITECTURE-MODULAR--AGENT-gold?style=for-the-badge&logo=dependencygraph&logoColor=white)](https://github.com/DXN1-termux/Dsm) &nbsp;&nbsp; [![Security](https://img.shields.io/badge/SECURITY-ENTERPRISE--GRADE-red?style=for-the-badge&logo=securityscorecard&logoColor=white)](https://github.com/DXN1-termux/Dsm)
 <br />
-[![System](https://img.shields.io/badge/SYSTEM-HYPER--MONITOR-brightgreen?style=for-the-badge&logo=statuspage&logoColor=white)](#-features) &nbsp;&nbsp; [![Storage](https://img.shields.io/badge/STORAGE-DEEP--CLEANER-blue?style=for-the-badge&logo=files&logoColor=white)](#-features) &nbsp;&nbsp; [![Network](https://img.shields.io/badge/NETWORK-THREAT--SCANNER-informational?style=for-the-badge&logo=nmap&logoColor=white)](#-features)
+[![System](https://img.shields.io/badge/SYSTEM-DASHBOARD-brightgreen?style=for-the-badge&logo=statuspage&logoColor=white)](#-features) &nbsp;&nbsp; [![Storage](https://img.shields.io/badge/STORAGE-DEEP--CLEANER-blue?style=for-the-badge&logo=files&logoColor=white)](#-features) &nbsp;&nbsp; [![Network](https://img.shields.io/badge/NETWORK-THREAT--SCANNER-informational?style=for-the-badge&logo=nmap&logoColor=white)](#-features)
 
 ---
 
@@ -23,7 +23,7 @@
 Default Password: `admin123` 🤫
 
 ## 🚀 Welcome to DSM 3.0
-**DSM (Dani Storage Manager)** has evolved. It is no longer just a Termux utility; it is a **universal system intelligence suite** built for Linux, macOS, WSL, and Termux. Powered by a high-performance Python modular agent architecture, DSM 3.0 provides the ultimate control interface for power users.
+**DSM (DXN1 Storage Manager)** has evolved. It is no longer just a Termux utility; it is a **universal system intelligence suite** built for Linux, macOS, WSL, and Termux. Powered by a high-performance Python modular agent architecture, DSM 3.0 provides the ultimate control interface for power users.
 
 ## 🌟 Why DSM 3.0? (The 20x Difference)
 - **Universal Engine:** Now detects your environment (Termux, Linux, macOS, WSL) and optimizes performance dynamically.

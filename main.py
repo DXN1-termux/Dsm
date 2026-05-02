@@ -34,7 +34,7 @@ def main():
         
         # Header
         console.print(Panel(
-            "[bold blue]DANI STORAGE MANAGER (DSM) v2.0[/bold blue]\n[dim]High-Performance Termux Utility Suite[/dim]",
+            "[bold blue]DXN1 STORAGE MANAGER (DSM) v3.0[/bold blue]\n[dim]High-Performance System & File Intelligence Suite[/dim]",
             border_style="cyan",
             expand=True,
             align="center"

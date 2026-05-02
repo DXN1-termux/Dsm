@@ -1,27 +1,23 @@
-import getpass
-from rich.console import Console
-from rich.panel import Panel
-from rich.prompt import Prompt
-
-console = Console()
+import json
+import os
+import hashlib
 
 class SecurityAgent:
-    def __init__(self, password="admin123"):
-        self.password = password
+    CONFIG_FILE = ".dsm_auth"
 
-    def authenticate(self):
-        console.clear()
-        console.print(Panel.fit(
-            "[bold cyan]DSM SECURITY CHECKPOINT[/bold cyan]\n[dim]Please verify your identity to continue[/dim]",
-            border_style="blue"
-        ))
-        
-        # We use standard getpass for secure input, or rich.prompt if we want visible but masked
-        input_pass = getpass.getpass("  Enter DSM Password: ")
-        
-        if input_pass == self.password:
-            console.print("[bold green]✓ Access Granted.[/bold green]")
-            return True
-        else:
-            console.print("[bold red]✗ Access Denied: Incorrect Password.[/bold red]")
-            return False
+    def __init__(self):
+        self.password_hash = self._load_password()
+
+    def _load_password(self):
+        if os.path.exists(self.CONFIG_FILE):
+            with open(self.CONFIG_FILE, 'r') as f:
+                return f.read().strip()
+        return hashlib.sha256("admin123".encode()).hexdigest()
+
+    def update_password(self, new_password):
+        self.password_hash = hashlib.sha256(new_password.encode()).hexdigest()
+        with open(self.CONFIG_FILE, 'w') as f:
+            f.write(self.password_hash)
+
+    def verify(self, password):
+        return hashlib.sha256(password.encode()).hexdigest() == self.password_hash

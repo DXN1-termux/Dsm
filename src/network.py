@@ -1,29 +1,18 @@
-import requests
 import subprocess
 from rich.panel import Panel
 
 class NetworkAgent:
-    def get_ip_info(self):
+    def scan_full(self, target):
+        """Advanced Nmap scan."""
+        # -A: OS detection, version detection, script scanning, and traceroute
+        cmd = ["nmap", "-A", "-T4", target]
         try:
-            public_ip = requests.get("https://api.ipify.org", timeout=5).text
+            result = subprocess.check_output(cmd).decode()
+            return Panel(result, title=f"Deep Scan: {target}", border_style="bold green")
         except:
-            public_ip = "Offline"
-            
-        try:
-            local_ip = subprocess.check_output(["hostname", "-I"]).decode().split()[0]
-        except:
-            local_ip = "Unknown"
-            
-        return Panel(
-            f"[bold cyan]Local IP:[/bold cyan] {local_ip}\n[bold magenta]Public IP:[/bold magenta] {public_ip}",
-            title="Network Info",
-            border_style="cyan"
-        )
+            return Panel("[red]Nmap scan failed. Ensure nmap is installed.[/red]")
 
-    def quick_scan(self, target):
-        # Basic nmap wrapper
-        try:
-            result = subprocess.check_output(["nmap", "-F", target]).decode()
-            return Panel(result, title=f"Scan: {target}", border_style="green")
-        except Exception as e:
-            return Panel(f"[bold red]Error running nmap:[/bold red] {e}", border_style="red")
+    def get_port_info(self, target, ports="1-1024"):
+        cmd = ["nmap", "-p", ports, target]
+        result = subprocess.check_output(cmd).decode()
+        return Panel(result, title=f"Port Scan [{ports}]", border_style="yellow")
